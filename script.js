@@ -44,6 +44,7 @@ $(function() {
 function expandItem(index) {
     const item = $("#ghx-pool .ghx-swimlane:eq(" + index + ")")
     item.find('.js-expander').click();
+    setTimeout(() => item[0].scrollIntoView(), 50);
 }
 function nextInScayla(index) {
     const item = $("#ghx-pool .ghx-swimlane:eq(" + (index + 1) + ")")
