@@ -1,8 +1,18 @@
 let scaylaDailyIndex = -1;
 
 $(function() {
-    $('body').append(`
+    $('body').addClass('daily-time').append(`
         <style>
+          body.daily-time #ghx-column-header-group {
+            /*top: -20px !important;*/
+          }
+          body.daily-time #ghx-column-header-group, body.daily-time #ghx-column-header-group .ghx-column {
+            background: transparent !important;
+            border-bottom: none !important;
+          }
+          body.daily-time #ghx-pool .ghx-swimlane:not(.ghx-closed) .ghx-swimlane-header {
+            opacity: 0 !important;
+          }
           #next-in-scayla {
             position: fixed;
             right: 20px;
@@ -30,6 +40,7 @@ $(function() {
               >Next</button>
         </div>`);
 
+    $("#ghx-operations").hide();
 
     $("#next-in-scayla-button").click(function() {
         closeAll();
@@ -44,6 +55,9 @@ $(function() {
 function expandItem(index) {
     const item = $("#ghx-pool .ghx-swimlane:eq(" + index + ")")
     item.find('.js-expander').click();
+    const name = item.find('.ghx-heading span[role="button"]').html();
+    $("#subnav-title").html(name);
+    $("#ghx-board-name").html('Now speaking:');
     setTimeout(() => item[0].scrollIntoView(), 50);
 }
 function nextInScayla(index) {
@@ -52,7 +66,10 @@ function nextInScayla(index) {
     if (name === 'Unassigned') {
         $("#next-in-scayla-name").html('Finished.');
         $("#next-in-scayla-button").attr('disabled', true);
-        $("#next-in-scayla").fadeOut(8000);
+        $("#next-in-scayla").fadeOut(8000, () => {
+            window.location.reload();
+        });
+        $("body").removeClass('daily-time');
     } else {
         $("#next-in-scayla-name").html('Next: <b>' + name + '</b>');
     }
