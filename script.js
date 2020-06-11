@@ -54,14 +54,6 @@ $(function() {
 
 function expandItem(index) {
     const item = $("#ghx-pool .ghx-swimlane:eq(" + index + ")")
-    item.find('.js-expander').click();
-    const name = item.find('.ghx-heading span[role="button"]').html();
-    $("#subnav-title").html(name);
-    $("#ghx-board-name").html('Now speaking:');
-    setTimeout(() => item[0].scrollIntoView(), 50);
-}
-function nextInScayla(index) {
-    const item = $("#ghx-pool .ghx-swimlane:eq(" + (index + 1) + ")")
     const name = item.find('.ghx-heading span[role="button"]').html();
     if (name === 'Unassigned') {
         $("#next-in-scayla-name").html('Finished.');
@@ -71,8 +63,17 @@ function nextInScayla(index) {
         });
         $("body").removeClass('daily-time');
     } else {
-        $("#next-in-scayla-name").html('Next: <b>' + name + '</b>');
+        item.find('.js-expander').click();
+        $("#subnav-title").html(name);
+        $("#ghx-board-name").html('Now speaking:');
+        setTimeout(() => item[0].scrollIntoView(), 50);
     }
+}
+function nextInScayla(index) {
+    const item = $("#ghx-pool .ghx-swimlane:eq(" + (index + 1) + ")")
+    const name = item.find('.ghx-heading span[role="button"]').html();
+    $("#next-in-scayla-name").html('Next: <b>' + name + '</b>');
+  
 }
 
 function closeAll() {
