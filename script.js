@@ -72,8 +72,11 @@ function expandItem(index) {
 function nextInScayla(index) {
     const item = $("#ghx-pool .ghx-swimlane:eq(" + (index + 1) + ")")
     const name = item.find('.ghx-heading span[role="button"]').html();
-    $("#next-in-scayla-name").html('Next: <b>' + name + '</b>');
-  
+    if (name === 'Unassigned') {
+        $("#next-in-scayla-name").html('Finish daily');
+    } else {
+        $("#next-in-scayla-name").html('Next: <b>' + name + '</b>');
+    }
 }
 
 function closeAll() {
