@@ -211,8 +211,7 @@ $(function() {
     for (let i = 0; i < teamLength; ++i) {
         dailyIndexes.push(i);
     }
-    shuffle(dailyIndexes);
-    console.log(dailyIndexes)
+    // shuffle(dailyIndexes);
 
     $("#next-in-scayla-button").click(function() {
         closeAll();
