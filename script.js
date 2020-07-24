@@ -110,6 +110,7 @@ $(function() {
         #next-later {
           cursor: pointer;
           margin-left: 30px;
+          background-color: #999;
         }
         #qc {
             position: fixed;
