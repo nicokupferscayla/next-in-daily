@@ -161,6 +161,12 @@ $(function() {
             padding: 10px;
             border-radius: 10px;
             border: 1px solid #777;
+            opacity: 0;
+            cursor: pointer;
+            min-width: 400px;
+            min-height: 100px;
+            display: flex;
+    		align-items: center;
         }
         label[for="show-ranking"] {
             position: fixed;
@@ -175,8 +181,7 @@ $(function() {
         </label>
         <div id="qc" style="display: none"><h1>Questions? Comments?</h1>
           <ul id="scayla-daily-times"></ul>
-          <div id="scayla-after-daily-stays" style="display: none">
-            <h3><span id="scayla-after-daily-stays-title"></span> please stay. You mentioned:</h3>
+          <div id="scayla-after-daily-stays" style="opacity: 0; cursor: pointer" onclick="this.style.opacity = 1">
           </div>
         </div>
         <div id="next-in-scayla" class="scayla-popup">
@@ -391,9 +396,7 @@ function scaylaAfterDailyStays() {
         results.push(`<li>${name}: ${things}</li>`);
     }
 
-    $("#scayla-after-daily-stays").show();
-
-    $("#scayla-after-daily-stays-title").html(Object.keys(scaylaAfterDaily).map((n) => `<b class="after-daily-topic-title">${n}</b>`).join(', '));
+    // $("#scayla-after-daily-stays-title").html(Object.keys(scaylaAfterDaily).map((n) => `<b class="after-daily-topic-title">${n}</b>`).join(', '));
     $("#scayla-after-daily-stays").append('<ul>' + results.join('') + '</ul>');
 }
 
