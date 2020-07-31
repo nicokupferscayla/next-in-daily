@@ -18,6 +18,12 @@ const andThenOptions = {
     no: 'Next: '
 }
 
+const scaylaNames = [
+  { replace: new RegExp(/Bommeli/), with: 'El Bommeli' },
+  { replace: new RegExp(/Rubio/), with: 'Juan and Only' },
+  { replace: new RegExp(/Margineanu/), with: 'Count Radu' },
+]
+
 const scaylaDailyTimes = {};
 const scaylaAfterDaily = {};
 
@@ -57,13 +63,13 @@ $(function() {
             justify-content: space-between;
           }
           #next-in-scayla > span {
-		    padding: 4px;
+        padding: 4px;
         position: relative;
-		  }
+      }
           #next-in-scayla-box {
-          	display: flex;
-          	flex-direction: row;
-          	align-items: center;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
             justify-content: space-between;
           }
           #next-in-scayla-name {
@@ -77,30 +83,30 @@ $(function() {
             font-weight: bold;
           }
           .danger {
-          	color: #e74c3c;
+            color: #e74c3c;
           }
           .success {
-          	color: #27ae60;
+            color: #27ae60;
           }
           #scayla-notify-next {
-		    left: 50%;
-		    margin-left: -100px;
-		    bottom: -100px;
-		    height: 70px;
-		    transition: all 0.4s ease-out;
-		    align-items: center;
-		    justify-content: center;
+        left: 50%;
+        margin-left: -100px;
+        bottom: -100px;
+        height: 70px;
+        transition: all 0.4s ease-out;
+        align-items: center;
+        justify-content: center;
           }
           #scayla-notify-next.show {
-          	bottom: 40px;
+            bottom: 40px;
           }
           #scayla-notify-next-name > b {
-          	font-size: 20px;
+            font-size: 20px;
           }
           #scayla-notify-next-img {
-          	border-radius: 100%;
-		    margin-right: 20px;
-		    height: 65px;
+            border-radius: 100%;
+        margin-right: 20px;
+        height: 65px;
           }
 
 
@@ -166,7 +172,7 @@ $(function() {
             min-width: 400px;
             min-height: 100px;
             display: flex;
-    		align-items: center;
+        align-items: center;
         }
         label[for="show-ranking"] {
             position: fixed;
@@ -189,12 +195,12 @@ $(function() {
               Before: <span id="previous-in-scayla-name"></span> <b id="previous-in-scayla-time"></b>
             </span>
             <span id="next-in-scayla-box">
-	            <label id="next-in-scayla-name" for="next_cb"></label>
-	            <button
-	              id="next-in-scayla-button"
-	              class="aui-button aui-button-primary aui-style"
-	              >Next</button>
-	        </span>
+              <label id="next-in-scayla-name" for="next_cb"></label>
+              <button
+                id="next-in-scayla-button"
+                class="aui-button aui-button-primary aui-style"
+                >Next</button>
+          </span>
             <span id="next-in-scayla-and-then">
                <span id="next-and-then"></span>
                <span id="next-in-scayla-and-then-name"></span>
@@ -346,13 +352,15 @@ function notifyCurrent(item_1) {
 /// HELPERS
 
 function getFunnyName(name) {
-    if (!name) {
-        return '';
+  if (!name) {
+    return;
+  }
+  for (let i = 0, len = scaylaNames.length; i < len; ++i) {
+    if (name.match(scaylaNames[i].replace)) {
+      return scaylaNames[i].with;
     }
-    if (name.match(/ommeli/)) {
-        return 'El Bommeli';
-    }
-    return name;
+  }
+  return name;
 }
 
 function nextIndex(index) {
