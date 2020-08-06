@@ -75,12 +75,11 @@ $(function() {
           #next-in-scayla-name {
             padding-right: 20px;
           }
-          #next-in-scayla-and-then, #previous-in-scayla-box {
+          #next_b, #previous-in-scayla-box, #next-in-scayla-and-then {
             opacity: 0.3;
           }
           #next-in-scayla-and-then.right-after {
-            opacity: 1;
-            font-weight: bold;
+            opacity: 0.6;
           }
           .danger {
             color: #e74c3c;
@@ -88,6 +87,9 @@ $(function() {
           .success {
             color: #27ae60;
           }
+        #next_cb:not(:checked) + #next_b {
+          font-weight: normal;
+        }
           #scayla-notify-next {
         left: 50%;
         margin-left: -100px;
@@ -109,10 +111,6 @@ $(function() {
         height: 65px;
           }
 
-
-        #next_cb:not(:checked) + #next_b {
-          opacity: 0.2;
-        }
         #next-later {
           cursor: pointer;
           margin-left: 30px;
@@ -256,7 +254,7 @@ $(function() {
                 });
             }
         }, 100);
-    }).trigger('click');
+    })
 
     $('#next-and-then').html(andThenOptions.yes);
 });
