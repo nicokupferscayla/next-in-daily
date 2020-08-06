@@ -254,7 +254,7 @@ $(function() {
                 });
             }
         }, 100);
-    })
+    }).trigger('click');
 
     $('#next-and-then').html(andThenOptions.yes);
 });
