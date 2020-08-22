@@ -7,6 +7,7 @@ let laterInScaylaTimeout;
 let next_1;
 let next_2;
 let currentPerson;
+let currentSpeakerName = '';
 
 let nicoHolidays = {
     day: 180,
@@ -18,9 +19,24 @@ const andThenOptions = {
     no: 'Next: '
 }
 
+const scaylaImg = {
+  daily: [
+    'https://i.imgur.com/oQo6RkW.jpg'
+  ],
+  canthear: [
+    'https://i.imgur.com/Mdau3t9.jpg',
+    'https://i.imgur.com/QuH7MWX.jpg',
+    'https://i.imgur.com/KddIFzr.jpg',
+    'https://i.imgur.com/4OkBAJT.jpg'
+  ],
+  mute: [
+    'https://i.imgur.com/AtOOY6H.jpg'
+  ]
+}
+
 const scaylaNames = [
   { replace: new RegExp(/Bommeli/), with: 'El Bommeli' },
-  { replace: new RegExp(/Rubio/), with: 'Juan and Only' },
+  // { replace: new RegExp(/Rubio/), with: 'Juan and Only' },
   { replace: new RegExp(/Margineanu/), with: 'Count Radu' },
 ]
 
@@ -49,7 +65,7 @@ $(function() {
             position: fixed;
             min-width: 125px;
             background: white;
-            z-index: 100;
+            z-index: 1002;
             display: flex;
             padding: 10px 30px;
             box-shadow: 0 0 6px -1px #666;
@@ -154,10 +170,11 @@ $(function() {
           height: 3px;
           opacity: 0;
           transition: all 0.2s ease-out;
+          display: flex; flex-direction: column;
         }
         #next-in-scayla-notes-box:hover {
           opacity: 0.3;
-          height: 25px;
+          height: 30px;
         }
         #scayla-after-daily-stays {
             margin-top: 40px;
@@ -178,6 +195,39 @@ $(function() {
             right: 89px;
             padding: 10px;
             cursor: ns-resize;
+        }
+        #scayla-images-bg {
+          position: fixed;
+          display: none;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          z-index: 1000;
+          background-color: rgba(0,0,0,0.1);
+        }
+        #scayla-images-popup-text {
+          z-index: 1001;
+          position: fixed;
+          text-align: center;
+          top: 10%;
+          padding: 10px;
+          background-color: #333;
+          color: #ddd;
+          display: none;
+          width: 60%;
+          left: 20%;
+        }
+        #scayla-images-popup {
+          z-index: 1000;
+          margin: auto;
+          height: 50%;
+        }
+        #scayla-images {
+          display: flex; flex-direction:row
+        }
+        .scayla-img-meme {
+          height:14px;margin-right: 3px; cursor: pointer
         }
         </style>
         <label for="show-ranking">
@@ -206,6 +256,11 @@ $(function() {
             <span id="next-in-scayla-notes-box">
                 <span id="scayla-remember-name" style="display: none"></span>
                 <input type="text" id="scayla-remember-input">
+                <span id="scayla-images">
+                  <img src="${ scaylaImg.daily[0] }" class="scayla-img-meme" data-img="daily" title="daily" data-text="Leave the details aside please - this is a coordination meeting"/>
+                  <img src="${ scaylaImg.canthear[0] }" class="scayla-img-meme" data-img="canthear" title="canthear" data-text="Please #NAME#, talk louder"/>
+                  <img src="${ scaylaImg.mute[0] }" class="scayla-img-meme" data-img="mute" title="mute" data-text="If you are not #NAME# please mute your mic"/>
+                </span>
             </span>
         </div>
         <div id="scayla-notify-next" class="scayla-popup">
@@ -213,6 +268,10 @@ $(function() {
           <span id="scayla-notify-next-name"></span>
           <button id="next-later" style="display: block;" class="aui-button aui-button-primary aui-style">Later...</button>
         </div>
+        <span id="scayla-images-bg">
+          <img id="scayla-images-popup" src="" style="display: none">
+          <h2 id="scayla-images-popup-text"></h2>
+        </span>
         `);
 
     $("#ghx-operations").hide();
@@ -257,6 +316,27 @@ $(function() {
     }).trigger('click');
 
     $('#next-and-then').html(andThenOptions.yes);
+
+    $('.scayla-img-meme')
+      .on('mousedown', function() {
+        $("#scayla-images-bg").css('display', 'flex');
+        const img = $(this).data('img');
+        // select random image in array
+        const src = scaylaImg[img][Math.floor(Math.random() * scaylaImg[img].length)];
+        $("#scayla-images-popup").attr('src', src).show();
+
+        if ($(this).data('text')) {
+          console.log("HS TEXT")
+          const text = $(this).data('text').replace('#NAME#', currentSpeakerName);
+          console.log(text);
+          $("#scayla-images-popup-text").html(text).show();
+        }
+      })
+      .on('mouseup', function() {
+        $("#scayla-images-popup").hide();
+        $("#scayla-images-popup-text").hide();
+        $("#scayla-images-bg").hide();
+      })
 });
 
 function currentTime(item_1) {
@@ -276,8 +356,9 @@ function expandItem(item_1) {
 
     const name = item_1.find('.ghx-heading span[role="button"]').html();
 
+    currentSpeakerName = getFunnyName(name);
     item_1.find('.js-expander').click();
-    $("#subnav-title").html(getFunnyName(name));
+    $("#subnav-title").html(currentSpeakerName);
     $("#ghx-board-name").html('Now speaking:');
     setTimeout(() => item_1[0].scrollIntoView(), 50);
     notifyCurrent(item_1);
