@@ -234,7 +234,7 @@ $(function() {
         <label for="show-ranking">
           <input type="checkbox" id="show-ranking" checked value="1"></input>
         </label>
-        <div id="qc" style="display: none"><h1>Questions? Comments?</h1>
+        <div id="qc" style="display: none"><h1>Questions? Comments? <small>Holidays?</small></h1>
           <ul id="scayla-daily-times"></ul>
           <div id="scayla-after-daily-stays" style="opacity: 0; cursor: pointer" onclick="this.style.opacity = 1">
           </div>
