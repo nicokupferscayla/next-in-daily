@@ -34,10 +34,12 @@ const scaylaImg = {
   ]
 }
 
+const qcH1 = (new Date()).getDay() === 3 ? 'Fragen? Bemerkungen? Ferien?' : 'Questions? Comments? Holidays?'
+
 const scaylaNames = [
   { replace: new RegExp(/Bommeli/), with: 'El Bommeli' },
     { replace: new RegExp(/Jacob/), with: 'J-Kob' },
-  // { replace: new RegExp(/Rubio/), with: 'Juan and Only' },
+   { replace: new RegExp(/Rubio/), with: '1' },
   { replace: new RegExp(/Margineanu/), with: 'Count Radu' },
     { replace: new RegExp(/Maxim/), with: 'Gladiator Maximus' },
     { replace: new RegExp(/Paris/), with: 'Anatolii Liakos' },
@@ -237,7 +239,7 @@ $(function() {
         <label for="show-ranking">
           <input type="checkbox" id="show-ranking" checked value="1"></input>
         </label>
-        <div id="qc" style="display: none"><h1>Questions? Comments? Holidays?</h1>
+        <div id="qc" style="display: none"><h1 id="qc-h1"></h1>
           <ul id="scayla-daily-times"></ul>
           <div id="scayla-after-daily-stays" style="opacity: 0; cursor: pointer" onclick="this.style.opacity = 1">
           </div>
@@ -279,6 +281,7 @@ $(function() {
         `);
 
     $("#ghx-operations").hide();
+    $("#qc-h1").html(qcH1);
 
     const teamLength = $("#ghx-pool .ghx-swimlane").length - 1; // because of "Unassigned"
     for (let i = 0; i < teamLength; ++i) {
