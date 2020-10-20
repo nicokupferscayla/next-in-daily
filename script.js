@@ -38,11 +38,11 @@ const qcH1 = (new Date()).getDay() === 3 ? 'Fragen? Bemerkungen? Ferien?' : 'Que
 
 const scaylaNames = [
   { replace: new RegExp(/Bommeli/), with: 'El Bommeli' },
-    { replace: new RegExp(/Jacob/), with: 'J-Kob' },
-   { replace: new RegExp(/Rubio/), with: '1' },
+    // { replace: new RegExp(/Jacob/), with: 'J-Kob' },
+  //  { replace: new RegExp(/Rubio/), with: '1' },
   { replace: new RegExp(/Margineanu/), with: 'Count Radu' },
-    { replace: new RegExp(/Maxim/), with: 'Gladiator Maximus' },
-    { replace: new RegExp(/Paris/), with: 'Anatolii Liakos' },
+ //    { replace: new RegExp(/Maxim/), with: 'Gladiator Maximus' },
+ //    { replace: new RegExp(/Paris/), with: 'Anatolii Liakos' },
   { replace: new RegExp(/Barbara/), with: 'Basia' },
 ]
 
